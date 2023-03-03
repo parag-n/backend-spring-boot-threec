@@ -1,5 +1,8 @@
 package com.threec.beans;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,6 +24,7 @@ public class Bid {
 	@GeneratedValue
 	private int bidId;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private Post post;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private ServiceProvider serviceProvider;

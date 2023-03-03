@@ -9,5 +9,4 @@ public class ThreecApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ThreecApplication.class, args);
 	}
-
 }

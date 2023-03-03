@@ -25,14 +25,14 @@ public class ConsumerController {
 
 	@Autowired
 	ConsumerService consumerService;
-	
+
 	// CREATE
 	@PostMapping("/consumers")
 	public ResponseEntity<Consumer> createConsumer(@RequestBody Consumer consumer){
 		Consumer newConsumer=consumerService.createConsumer(consumer);
 		return ResponseEntity.ok(newConsumer);
 	}
-	
+
 	// READ ONE
 	@GetMapping("/consumers/{consumerId}")
 	public ResponseEntity<Consumer> readConsumer(@PathVariable int consumerId){
@@ -42,7 +42,7 @@ public class ConsumerController {
 		else 
 			return new ResponseEntity<Consumer>(HttpStatus.NOT_FOUND);
 	}
-	
+
 	// READ ALL
 	@GetMapping("/consumers")
 	public ResponseEntity<List<Consumer>> readConsumers(){
@@ -52,7 +52,7 @@ public class ConsumerController {
 		else 
 			return new ResponseEntity<List<Consumer>>(HttpStatus.NOT_FOUND);
 	}
-	
+
 	// UPDATE
 	@PutMapping("/consumers")
 	public ResponseEntity<Consumer> updateConsumer(@RequestBody Consumer consumer){
@@ -62,7 +62,7 @@ public class ConsumerController {
 		else 
 			return new ResponseEntity<Consumer>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 	// DELETE
 	@DeleteMapping("/consumers/{consumerId}")
 	public ResponseEntity<String> deleteConsumer(@PathVariable int consumerId) {
@@ -70,12 +70,13 @@ public class ConsumerController {
 		if(status) return ResponseEntity.ok("deleted successfully");
 		else return new ResponseEntity<String>("uh oh! try again differently!", HttpStatus.BAD_REQUEST);
 	}
-	
+
 	// ADD POST
 	@PutMapping("/addpost")
 	public ResponseEntity<Consumer> addPost(@RequestBody Consumer consumer){
+//		System.out.println(consumer.getConsumerId());
 		Consumer added=consumerService.addPost(consumer);
 		if(added!=null) return ResponseEntity.ok(added);
-		else return new ResponseEntity<Consumer>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Consumer>(HttpStatus.BAD_REQUEST);
 	}
 }
