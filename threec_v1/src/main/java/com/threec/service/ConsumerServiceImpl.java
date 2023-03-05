@@ -53,6 +53,7 @@ public class ConsumerServiceImpl implements ConsumerService{
 		if(consumer.getEmail()!=null) old.setEmail(consumer.getEmail());
 		if(consumer.getPassword()!=null) old.setPassword(consumer.getPassword());
 		if(consumer.getPhone()!=null) old.setPhone(consumer.getPhone());
+		if(consumer.getUsername()!=null) old.setUsername(consumer.getUsername());
 		return consumerDao.save(old);
 	}
 
@@ -85,4 +86,11 @@ public class ConsumerServiceImpl implements ConsumerService{
 		}
 		return null;
 	}
+
+	@Override
+	public Consumer getLogin(String username) {
+		return consumerDao.getLogin(username);
+		
+	}
+
 }

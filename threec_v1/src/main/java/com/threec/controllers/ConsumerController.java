@@ -1,10 +1,10 @@
 package com.threec.controllers;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,7 +70,15 @@ public class ConsumerController {
 		if(status) return ResponseEntity.ok("deleted successfully");
 		else return new ResponseEntity<String>("uh oh! try again differently!", HttpStatus.BAD_REQUEST);
 	}
-
+	
+	// LOGIN
+	@PostMapping("/login")
+	public ResponseEntity<Consumer> login(@RequestBody Consumer consumer) throws NoSuchAlgorithmException{
+		Consumer daoC=consumerService.getLogin(consumer.getUsername());
+		System.out.println(daoC.getPassword());
+		return ResponseEntity.ok(daoC);
+	}
+	
 	// ADD POST
 	@PutMapping("/addpost")
 	public ResponseEntity<Consumer> addPost(@RequestBody Consumer consumer){
