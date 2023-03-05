@@ -32,10 +32,15 @@ public class Consumer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int consumerId;
-	private String name;
+	// basic details
+	private String fullname;
 	private String phone;
 	private String email;
+	// authentication details
+	private String username;
 	private String password;
+	private String salt;
+	// extra details
 	@OneToMany(mappedBy = "consumer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Address> addresses;
 	@OneToMany(mappedBy = "consumer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

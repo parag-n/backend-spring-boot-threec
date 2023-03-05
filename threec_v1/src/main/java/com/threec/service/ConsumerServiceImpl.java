@@ -33,17 +33,27 @@ public class ConsumerServiceImpl implements ConsumerService{
 
 	@Override
 	public Consumer updateConsumer(Consumer consumer) {
-		if(consumer.getConsumerId()!=0 && consumer.getName()!=null && consumer.getPassword()!=null) {
-			Optional<Consumer> old=consumerDao.findById(consumer.getConsumerId());
-			if(old.isPresent()) {
-				Consumer newConsumer=old.get();
-				newConsumer.setName(consumer.getName());
-				newConsumer.setPassword(consumer.getPassword());
-				consumerDao.save(newConsumer);
-				return newConsumer;
-			}
-		}
-		return null;
+		//	========= OLD LOGIC =========
+		// it was making checks first, making code slow in case of user not existing
+//		if(consumer.getConsumerId()!=0 && consumer.getName()!=null && consumer.getPassword()!=null) {
+//			Optional<Consumer> old=consumerDao.findById(consumer.getConsumerId());
+//			if(old.isPresent()) {
+//				Consumer newConsumer=old.get();
+//				newConsumer.setName(consumer.getName());
+//				newConsumer.setPassword(consumer.getPassword());
+//				consumerDao.save(newConsumer);
+//				return newConsumer;
+//			}
+//		}
+//		return null;
+		// ========= NEW LOGIC =========
+		Consumer old=readConsumer(consumer.getConsumerId());
+		if(old==null) return null;
+		if(consumer.getName()!=null) old.setName(consumer.getName());
+		if(consumer.getEmail()!=null) old.setEmail(consumer.getEmail());
+		if(consumer.getPassword()!=null) old.setPassword(consumer.getPassword());
+		if(consumer.getPhone()!=null) old.setPhone(consumer.getPhone());
+		return consumerDao.save(old);
 	}
 
 	@Override

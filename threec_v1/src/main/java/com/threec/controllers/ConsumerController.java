@@ -60,7 +60,7 @@ public class ConsumerController {
 		if(updatedConsumer!=null) 
 			return ResponseEntity.ok(updatedConsumer);
 		else 
-			return new ResponseEntity<Consumer>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Consumer>(HttpStatus.NOT_FOUND);
 	}
 
 	// DELETE
