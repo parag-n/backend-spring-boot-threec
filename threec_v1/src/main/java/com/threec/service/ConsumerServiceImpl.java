@@ -49,7 +49,7 @@ public class ConsumerServiceImpl implements ConsumerService{
 		// ========= NEW LOGIC =========
 		Consumer old=readConsumer(consumer.getConsumerId());
 		if(old==null) return null;
-		if(consumer.getName()!=null) old.setName(consumer.getName());
+		if(consumer.getFullname()!=null) old.setFullname(consumer.getFullname());
 		if(consumer.getEmail()!=null) old.setEmail(consumer.getEmail());
 		if(consumer.getPassword()!=null) old.setPassword(consumer.getPassword());
 		if(consumer.getPhone()!=null) old.setPhone(consumer.getPhone());
