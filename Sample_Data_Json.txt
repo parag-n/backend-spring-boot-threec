@@ -1,0 +1,250 @@
+Insertion flow:
+Consumer --> Address --> Expertise --> Post --> Service Provider --> Bid
+
+======= CONSUMERS =======
+{
+	"name":"Babalu Kadam",
+	"phone":"8605905908",
+	"email":"babalukadam1020@gmail.com",
+	"password":"passBabalu"
+}
+{
+	"name":"Akash Markad",
+	"phone":"8055357058",
+	"email":"aakashmarkad@gmail.com",
+	"password":"passAkash"
+}
+{
+    "name": "Check Consumer",
+    "phone": "9876543210",
+    "email": "checkconsumer@gmail.com",
+    "password": "passCheck"
+}
+
+======= ADDRESSES =======
+{
+	"consumer":{
+			"consumerId":1
+		},
+	"details":"Room No. 999",
+	"locality":"BM Thorat Chowk",
+	"pincode":411016,
+	"city":"Pune"
+}
+
+{
+	"consumer":{
+			"consumerId":2
+		},
+	"details":"Room No. 8, Ideal Boys hostel",
+	"locality":"Deep Bangla Chowk",
+	"pincode":411016,
+	"city":"Pune"
+}
+
+============ EXPERTISES =============
+{
+	"name": "Maid"
+}
+{
+	"name": "Personal Tutor"
+}
+{
+	"name": "Electrical Repairs"
+}
+{
+	"name": "Plumbing"
+}
+
+======= POSTS =========
+{
+	"consumer":{
+			"consumerId":1
+	},
+	"title":"first post hai",
+	"description":"add hoga ya nahi",
+	"category": {
+		"expertiseId":1	
+	},
+	"status":"Created just now",
+	"address":{
+		"addressId":1
+	}
+}
+{
+	"consumer":
+		{
+			"consumerId":2
+		},
+	"title":"second post hai",
+	"description":"pichla wala add ho gaya tha",
+	"category": {
+		"expertiseId":1	
+	},
+	"status":"Created just now",
+	"address":{
+		"addressId":1
+	}
+}
+{
+	"consumer":
+		{
+			"consumerId":1
+		},
+	"title": "Tap is broken in bathroom",
+	"description": "need a good plumber to repair a 3/4 inch tap",
+	"category": {
+		"expertiseId":1	
+	},
+	"status":"Created just now",
+	"address":{
+		"addressId":1
+	}
+}
+{
+	"consumer":
+		{
+			"consumerId":1
+		},
+	"title": "Switch is not working",
+        "description": "Switch to the fan is not working, electrician required",
+	"category": {
+		"expertiseId":1	
+	},
+	"status":"Created just now",
+	"address":{
+		"addressId":1
+	}
+}
+
+======= SERVICE PROVIDERS =======
+{
+	"name":"SP Akash Markad",
+	"phone":"8055357058",
+	"email":"aakashmarkad@gmail.com",
+	"password":"SPpassAkash",
+	"city":"Pune",
+	"expertise":[
+		{
+			"expertiseId":1
+		},
+		{
+			"expertiseId":2
+		},
+		{
+			"expertiseId":3
+		}
+	]
+}
+{
+	"name":"SP Babalu Kadam",
+	"phone":"8605905908",
+	"email":"babalukadam1020@gmail.com",
+	"password":"SPpassBabalu",
+	"city":"Pune",
+	"expertise":[
+		{
+			"expertiseId":1
+		},
+		{
+			"expertiseId":2
+		},
+		{
+			"expertiseId":3
+		}
+	]
+}
+
+
+
+============ BIDS ====================
+{
+	"post":{
+		"postId":1
+	},
+	"serviceProvider":{
+		"serviceProviderId":1
+	},
+	"amount":5000,
+	"note":"Tap cost will be borne by consumer"
+}
+{
+	"post":{
+		"postId":1
+	},
+	"serviceProvider":{
+		"serviceProviderId":1
+	},
+	"amount":2000,
+	"note":"We will provide the switch"
+}
+
+
+insert into post values(1,"manually add kiya hai","pending hi hai","dekhte hai",null,null,1);
+
+
+
+============= first successful address insertion along with consumer ====
+    select
+        c1_0.consumer_id,
+        a1_0.consumer_id,
+        a1_0.address_id,
+        a1_0.city,
+        a1_0.details,
+        a1_0.locality,
+        a1_0.pincode,
+        c1_0.email,
+        c1_0.name,
+        c1_0.password,
+        c1_0.phone 
+    from
+        consumer c1_0 
+    left join
+        address a1_0 
+            on c1_0.consumer_id=a1_0.consumer_id 
+    where
+        c1_0.consumer_id=?
+Hibernate: 
+    select
+        next_val as id_val 
+    from
+        address_seq for update
+Hibernate: 
+    update
+        address_seq 
+    set
+        next_val= ? 
+    where
+        next_val=?
+Hibernate: 
+    insert 
+    into
+        address
+        (city, consumer_id, details, locality, pincode, address_id) 
+    values
+        (?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        p1_0.consumer_id,
+        p1_0.post_id,
+        a1_0.address_id,
+        a1_0.city,
+        a1_0.consumer_id,
+        a1_0.details,
+        a1_0.locality,
+        a1_0.pincode,
+        c1_0.expertise_id,
+        c1_0.name,
+        p1_0.description,
+        p1_0.status,
+        p1_0.title 
+    from
+        post p1_0 
+    left join
+        address a1_0 
+            on a1_0.address_id=p1_0.address_address_id 
+    left join
+        expertise c1_0 
+            on c1_0.expertise_id=p1_0.category_expertise_id 
+    where
+        p1_0.consumer_id=?
