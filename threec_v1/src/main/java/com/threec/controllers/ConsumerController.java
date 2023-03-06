@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.threec.service.ConsumerService;
 
 @RestController
 @RequestMapping("/consumer")
+@CrossOrigin("*")
 public class ConsumerController {
 
 	@Autowired
@@ -73,9 +75,10 @@ public class ConsumerController {
 	
 	// LOGIN
 	@PostMapping("/login")
-	public ResponseEntity<Consumer> login(@RequestBody Consumer consumer) throws NoSuchAlgorithmException{
+	public ResponseEntity<Consumer> login(@RequestBody Consumer consumer){
 		Consumer daoC=consumerService.getLogin(consumer.getUsername());
-		System.out.println(daoC.getPassword());
+		if(daoC==null) return new ResponseEntity<Consumer>(HttpStatus.NOT_FOUND);
+//		System.out.println(daoC.getPassword());
 		return ResponseEntity.ok(daoC);
 	}
 	
