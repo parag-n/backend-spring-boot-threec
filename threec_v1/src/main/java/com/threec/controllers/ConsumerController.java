@@ -1,6 +1,7 @@
 package com.threec.controllers;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,12 @@ public class ConsumerController {
 	// CREATE
 	@PostMapping("/consumers")
 	public ResponseEntity<Consumer> createConsumer(@RequestBody Consumer consumer){
-		Consumer newConsumer=consumerService.createConsumer(consumer);
-		return ResponseEntity.ok(newConsumer);
+		try {
+			Consumer newConsumer=consumerService.createConsumer(consumer);
+			return ResponseEntity.ok(newConsumer);
+		}catch(Exception e) {
+			return new ResponseEntity<Consumer>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// READ ONE

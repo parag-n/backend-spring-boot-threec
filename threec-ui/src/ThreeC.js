@@ -8,14 +8,21 @@ import TCRegisterConsumer from "./components/TCRegisterConsumer";
 
 export default function ThreeC() {
     return (<div>
+
+        {/* writing navbar outside browser router to keep it visible the whole time */}
         <TCNavbar></TCNavbar>
+
         <BrowserRouter>
+
+            {/* Defining routes to different components */}
             <Routes>
-                <Route path="/" element={<TCHome></TCHome>}></Route>
-                <Route path="/register" element={<TCRegisterConsumer></TCRegisterConsumer>}>
-                </Route>
-                <Route path="/login" element={<TCLogin></TCLogin>}></Route>
-                <Route path="/myaccount" element={<TCMyAccount></TCMyAccount>}></Route>
+                <Route path="/" element={<TCHome/>}></Route>
+
+                <Route path="/register" element={<TCRegisterConsumer/>}></Route>
+                
+                <Route path="/login" element={<TCLogin/>}></Route>
+                
+                <Route path="/myaccount" element={<TCMyAccount/>}  ></Route>
             </Routes>
         </BrowserRouter>
     </div>)
