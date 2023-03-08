@@ -10,7 +10,7 @@ export default function TCCPosts(props) {
         <div className="card">
             <h5 className="text-center" >YOUR POSTS</h5>
             <div className="card-body d-flex flex-wrap bg-light p-2 rounded">
-                <div className="card text-white bg-dark" style={{ maxWidth: "23rem" }}>
+                <div className="card text-white bg-dark" style={{ maxWidth: "20rem" }}>
                     <div className="card-header text-center">Create New Post</div>
                     <div className="card-body">
                         {/* <h5 className="card-title">Checking the title</h5> */}
@@ -20,7 +20,7 @@ export default function TCCPosts(props) {
                 </div>
                 {
                     posts.map((post) => {
-                        return <div className="card text-white bg-dark" style={{ maxWidth: "23rem" }}>
+                        return <div className="card text-white bg-dark" style={{ maxWidth: "2rem" }}>
                             <div className="card-header text-center">{post.title}</div>
                             <div className="card-body">
                                 {/* <h5 className="card-title">Checking the title</h5> */}
