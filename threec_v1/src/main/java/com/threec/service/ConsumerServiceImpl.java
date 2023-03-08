@@ -74,8 +74,23 @@ public class ConsumerServiceImpl implements ConsumerService{
 
 	// LOGIN
 	@Override
-	public Consumer getLogin(String username) {
-		return consumerDao.getLogin(username);
+	public Consumer getLogin(Consumer consumer) {
+		Consumer user=null;
+		if(consumer!=null) {
+			user= consumerDao.getLogin(consumer.getUsername());
+			System.out.println(consumer.getUsername());
+//			System.out.println(user.getPassword()==consumer.getPassword());
+//			System.out.println(consumer.getPassword());
+		}
+		
+		if(user==null) return null;
+		
+		else if(user.getPassword().equals(consumer.getPassword())) {
+			user=readConsumer(user.getConsumerId());
+			user.setPassword(null);
+			return  user;
+		}
+		return null;
 	}
 
 	// ADD POST

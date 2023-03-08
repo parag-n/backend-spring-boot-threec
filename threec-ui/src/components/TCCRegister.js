@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-export default function TCRegisterConsumer() {
+export default function TCCRegister() {
 
   // navigate hook to navigate to the desired component
   let nav = useNavigate();
@@ -47,17 +47,18 @@ export default function TCRegisterConsumer() {
 
 
   return (
-    <div className="container mt-5 w-50 px-5 py-5 rounded-5 bg-secondary">
+    <div className="container mt-5 px-5 py-5 rounded-5 bg-secondary" style={{maxWidth:"40rem"}}>
 
       <h2 className="mb-3 text-center" >CONSUMER REGISTRATION</h2>
 
-      <form onSubmit={checkHandler}>
+      <form onSubmit={checkHandler} className="needs-validation">
 
         <div className="row">
 
           <div className="mb-3 col">
             <label htmlFor="fullname" className="form-label">Name</label>
             <input type="text" className="form-control" name="fullname" id="fullname" onChange={inputHandler} required></input>
+            <div className="valid-feedback">Looks good!</div>
           </div>
 
         </div>

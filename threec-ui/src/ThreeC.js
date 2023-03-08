@@ -1,29 +1,48 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Provider, useSelector } from "react-redux";
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import TCHome from "./components/TCHome";
 import TCLogin from "./components/TCLogin";
 import TCMyAccount from "./components/TCMyAccount";
 import TCNavbar from "./components/TCNavbar";
-import TCRegisterConsumer from "./components/TCRegisterConsumer";
+import TCCAddPost from "./components/TCCAddPost";
+import TCCRegister from "./components/TCCRegister";
+import TCReduxStore from "./components/TCReduxStore"
+import { useState } from "react";
 
 export default function ThreeC() {
-    return (<div>
 
-        {/* writing navbar outside browser router to keep it visible the whole time */}
-        <TCNavbar></TCNavbar>
+    // let navi = useNavigate();
+    // let user = useSelector((state) => { console.log(state.user); return state.user; })
+    // let [loggedIn, setLogin]=useState(false);
+    // useSelector(()=>{})
 
-        <BrowserRouter>
 
-            {/* Defining routes to different components */}
-            <Routes>
-                <Route path="/" element={<TCHome/>}></Route>
+    return (
+        <div>
+            <Provider store={TCReduxStore}>
+                {/* <ThreeC></ThreeC> */}
+                <BrowserRouter>
 
-                <Route path="/register" element={<TCRegisterConsumer/>}></Route>
-                
-                <Route path="/login" element={<TCLogin/>}></Route>
-                
-                <Route path="/myaccount" element={<TCMyAccount/>}  ></Route>
-            </Routes>
-        </BrowserRouter>
-    </div>)
+                    <TCNavbar></TCNavbar>
+
+                    {/* Defining routes to different components */}
+                    <Routes>
+
+                        <Route path="/" element={<TCHome />}></Route>
+
+                        <Route path="/register" element={<TCCRegister />}></Route>
+
+                        <Route path="/login" element={<TCLogin />}></Route>
+
+                        <Route path="/myaccount" element={<TCMyAccount/>}></Route>
+
+                        <Route path="/newpost" element={<TCCAddPost />}></Route>
+
+                        <Route path="*" element={<TCHome/>}></Route>
+                    </Routes>
+                </BrowserRouter>
+            </Provider>
+        </div>
+    )
 }

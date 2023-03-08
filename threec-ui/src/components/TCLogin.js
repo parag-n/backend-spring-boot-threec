@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function TCLogin() {
     
@@ -8,8 +9,13 @@ export default function TCLogin() {
     let [user, setU]=useState();
     let [pass, setP]=useState();
 
+    let loginDispatcher=useDispatch();
+
     // navigate to user account
     let navi=useNavigate();
+
+    // retrieving the message from navigate
+    let message=useLocation();
 
     // consumer object to be sent to the REST API
     let consumer={
@@ -24,12 +30,13 @@ export default function TCLogin() {
         e.preventDefault();
         
         // using post method to send the login request
-        axios.post("http://localhost:7070/consumer/login", consumer)
+        axios.post("http://192.168.1.100:7070/consumer/login", consumer)
         
         .then(
             // print the response data on console if the promise if fulfilled
             (response)=>{
                 console.log(response.data)
+                loginDispatcher({type:"login", consumer:response.data, user:true})
                 navi("/myaccount", response.data)
             },
             // print message if promise is rejected
@@ -40,12 +47,15 @@ export default function TCLogin() {
     }
     return (
         <div>
-            <div className="container-fluid mt-5 w-50 p-5 rounded-5 bg-secondary">
+            <div className="container-fluid mt-5 p-5 rounded-5 bg-secondary" style={{maxWidth:"25rem"}}>
+                {
+                    message==null?<></>:<></>       // work on this one later
+                }
                 <h2 className="text-center pb-2">CONSUMER LOGIN</h2>
 
                 <form onSubmit={loginHandler}>
                     
-                    <div className="row">
+                    {/* <div className="row"> */}
                         
                         <div className="mb-3 col">
                             <label htmlFor="username" className="form-label">Username</label>
@@ -57,7 +67,7 @@ export default function TCLogin() {
                             <input type="password" className="form-control" id="password" onChange={(e) => { setP(e.target.value) }} ></input>
                         </div>
                     
-                    </div>
+                    {/* </div> */}
                     
                     <button type="submit" className="btn btn-success">Login</button>
                 

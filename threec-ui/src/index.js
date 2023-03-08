@@ -6,6 +6,7 @@ import ThreeC from './ThreeC';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  
   <ThreeC></ThreeC>
 );
 

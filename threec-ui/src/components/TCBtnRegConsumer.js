@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import TCRegister from "./TCRegisterConsumer";
+import TCCRegister from "./TCCRegister";
 
-export default function TCBtnRegConsumer(){
+export default function TCCBtnReg(){
     return(
-        <Link className="btn btn-primary" to={<TCRegister></TCRegister>}></Link>
+        <Link className="btn btn-primary" to={<TCCRegister></TCCRegister>}></Link>
     )
 }

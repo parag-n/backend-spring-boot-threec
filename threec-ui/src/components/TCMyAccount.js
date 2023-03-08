@@ -1,41 +1,30 @@
+import { useSelector } from "react-redux";
+import { Link, Navigate, useNavigate, redirect } from "react-router-dom";
+import TCCAddresses from "./TCCAddresses";
+import TCCPosts from "./TCCPosts";
 
 export default function TCMyAccount() {
 
-    return (
-        <div className="container bg-light my-2 rounded-3 p-2">
+    let consumer=useSelector((state)=>{
+        return state.consumer;
+    })
+    let user=useSelector((state)=>{
+        return state.user;
+    })
 
-            <div className="inline-flex">
-                <h4 className="text-center">Your Posts</h4>
-                <table className="table table-dark">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th><th scope="col">Title</th><th scope="col">Description</th><th scope="col">Bids</th>
-                        </tr>
-                    </thead>
-                    <tbody className="table-light">
-                        <tr>
-                            <td><button className="btn btn-success">New Post</button></td><td>{ }</td><td>{ }</td><td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <hr/>
-            <hr/>
-            <div className="">
-                <h4 className="text-center">Your Profile Details</h4>
-                <table className="table table-dark">
-                    <thead>
-                        <tr>
-                            <th>Name</th><th>Email</th><th>Phone</th>
-                        </tr>
-                    </thead>
-                    <tbody className="table-light">
-                        <tr>
-                            <td>{ }</td><td>{ }</td><td>{ }</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    let navi=useNavigate();
+
+    let myhtml=<div className="container bg-light my-2 rounded-3 p-2" style={{maxWidth:"70rem"}}>
+    <div className="text-center h5" >Hello, {consumer.fullname}</div>
+    <TCCAddresses addresses={consumer.addresses}></TCCAddresses>
+    <TCCPosts posts={consumer.posts}></TCCPosts>
+</div>
+
+    return (
+        <>
+            {
+            user?(myhtml): (navi("/login"))
+            }
+        </>
     )
 }
