@@ -11,7 +11,6 @@ export default function TCNavbar() {
     let logout=()=>{
         navi("/login", "successfully logged out");
         logoutDis({type:"logout", consumer:{consumerId:0}, user:false})
-        
     }
 
     let user=useSelector((state)=>{
@@ -29,6 +28,8 @@ export default function TCNavbar() {
                     <Link to={"/register"} className="btn btn-warning me-2">Register</Link>
                     <Link to={"/login"} className="btn btn-warning me-2">Login</Link>
                     <Link to={"/myaccount"} ><PersonFill size="2em"></PersonFill></Link>
+                    <Link to={"/spregister"} className="btn btn-warning">SP REG</Link>
+
                     <button className="btn btn-danger" onClick={logout}>Logout</button>
                         
                 </div>

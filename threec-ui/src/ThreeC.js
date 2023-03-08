@@ -9,6 +9,7 @@ import TCCAddPost from "./components/TCCAddPost";
 import TCCRegister from "./components/TCCRegister";
 import TCReduxStore from "./components/TCReduxStore"
 import { useState } from "react";
+import TCSRegister from "./components/TCSRegister";
 
 export default function ThreeC() {
 
@@ -38,6 +39,8 @@ export default function ThreeC() {
                         <Route path="/myaccount" element={<TCMyAccount/>}></Route>
 
                         <Route path="/newpost" element={<TCCAddPost />}></Route>
+
+                        <Route path="/spregister" element={<TCSRegister/>}></Route>
 
                         <Route path="*" element={<TCHome/>}></Route>
                     </Routes>

@@ -37,6 +37,9 @@ const TCReducer = (
         return {...state, consumer:{...state.consumer, posts:[...state.consumer.posts, action.newpost]}}
     
     }
+    else if(action.type==="splogin"){
+        return {...state, SP:action.spdata}
+    }
 
 }
 
