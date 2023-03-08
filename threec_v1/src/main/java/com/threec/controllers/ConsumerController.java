@@ -1,6 +1,5 @@
 package com.threec.controllers;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpServerErrorException;
 
 import com.threec.beans.Consumer;
 import com.threec.service.ConsumerService;
@@ -31,8 +29,12 @@ public class ConsumerController {
 	// CREATE
 	@PostMapping("/consumers")
 	public ResponseEntity<Consumer> createConsumer(@RequestBody Consumer consumer){
-		Consumer newConsumer=consumerService.createConsumer(consumer);
-		return ResponseEntity.ok(newConsumer);
+		try {
+			Consumer newConsumer=consumerService.createConsumer(consumer);
+			return ResponseEntity.ok(newConsumer);
+		}catch(Exception e) {
+			return new ResponseEntity<Consumer>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// READ ONE
@@ -48,8 +50,10 @@ public class ConsumerController {
 	// READ ALL
 	@GetMapping("/consumers")
 	public ResponseEntity<List<Consumer>> readConsumers(){
+		
 		List<Consumer> clist=consumerService.readAllConsumers();
-		if(clist!=null) 
+		
+		if(clist!=null)
 			return ResponseEntity.ok(clist);
 		else 
 			return new ResponseEntity<List<Consumer>>(HttpStatus.NOT_FOUND);
@@ -76,7 +80,7 @@ public class ConsumerController {
 	// LOGIN
 	@PostMapping("/login")
 	public ResponseEntity<Consumer> login(@RequestBody Consumer consumer){
-		Consumer daoC=consumerService.getLogin(consumer.getUsername());
+		Consumer daoC=consumerService.getLogin(consumer);
 		if(daoC==null) return new ResponseEntity<Consumer>(HttpStatus.NOT_FOUND);
 //		System.out.println(daoC.getPassword());
 		return ResponseEntity.ok(daoC);

@@ -15,37 +15,41 @@ import com.threec.dao.ConsumerDao;
 public class ConsumerServiceImpl implements ConsumerService{
 	@Autowired
 	ConsumerDao consumerDao;
-	
+
+	// CREATE
 	public Consumer createConsumer(Consumer consumer) {
 		return consumerDao.save(consumer);
 	}
 
+	// READ ONE
 	@Override
 	public Consumer readConsumer(int consumerId) {
 		Optional<Consumer> consumer=consumerDao.findById(consumerId);
 		return consumer.orElse(null);
 	}
 
+	// READ ALL
 	@Override
 	public List<Consumer> readAllConsumers() {
 		return consumerDao.findAll();
 	}
 
+	// UPDATE
 	@Override
 	public Consumer updateConsumer(Consumer consumer) {
 		//	========= OLD LOGIC =========
 		// it was making checks first, making code slow in case of user not existing
-//		if(consumer.getConsumerId()!=0 && consumer.getName()!=null && consumer.getPassword()!=null) {
-//			Optional<Consumer> old=consumerDao.findById(consumer.getConsumerId());
-//			if(old.isPresent()) {
-//				Consumer newConsumer=old.get();
-//				newConsumer.setName(consumer.getName());
-//				newConsumer.setPassword(consumer.getPassword());
-//				consumerDao.save(newConsumer);
-//				return newConsumer;
-//			}
-//		}
-//		return null;
+		//		if(consumer.getConsumerId()!=0 && consumer.getName()!=null && consumer.getPassword()!=null) {
+		//			Optional<Consumer> old=consumerDao.findById(consumer.getConsumerId());
+		//			if(old.isPresent()) {
+		//				Consumer newConsumer=old.get();
+		//				newConsumer.setName(consumer.getName());
+		//				newConsumer.setPassword(consumer.getPassword());
+		//				consumerDao.save(newConsumer);
+		//				return newConsumer;
+		//			}
+		//		}
+		//		return null;
 		// ========= NEW LOGIC =========
 		Consumer old=readConsumer(consumer.getConsumerId());
 		if(old==null) return null;
@@ -57,6 +61,7 @@ public class ConsumerServiceImpl implements ConsumerService{
 		return consumerDao.save(old);
 	}
 
+	// DELETE
 	@Override
 	public boolean deleteConsumer(int consumerId) {
 		Consumer consumer= readConsumer(consumerId);
@@ -67,6 +72,28 @@ public class ConsumerServiceImpl implements ConsumerService{
 		return false;
 	}
 
+	// LOGIN
+	@Override
+	public Consumer getLogin(Consumer consumer) {
+		Consumer user=null;
+		if(consumer!=null) {
+			user= consumerDao.getLogin(consumer.getUsername());
+			System.out.println(consumer.getUsername());
+//			System.out.println(user.getPassword()==consumer.getPassword());
+//			System.out.println(consumer.getPassword());
+		}
+		
+		if(user==null) return null;
+		
+		else if(user.getPassword().equals(consumer.getPassword())) {
+			user=readConsumer(user.getConsumerId());
+			user.setPassword(null);
+			return  user;
+		}
+		return null;
+	}
+
+	// ADD POST
 	@Override
 	public Consumer addPost(Consumer consumer) {
 		int id=consumer.getConsumerId();
@@ -74,9 +101,9 @@ public class ConsumerServiceImpl implements ConsumerService{
 		Optional<Consumer> findCon=consumerDao.findById(id);
 		if(findCon.isPresent()) {
 			Consumer con=findCon.get();
-//			System.out.println(con);
+			//			System.out.println(con);
 			List<Post> plist=con.getPosts();
-//			System.out.println(plist.get(0).getTitle());
+			//			System.out.println(plist.get(0).getTitle());
 			if(plist==null) plist=new ArrayList<>();
 			plist.addAll(consumer.getPosts());
 			Post post=plist.get(0);
@@ -86,11 +113,4 @@ public class ConsumerServiceImpl implements ConsumerService{
 		}
 		return null;
 	}
-
-	@Override
-	public Consumer getLogin(String username) {
-		return consumerDao.getLogin(username);
-		
-	}
-
 }

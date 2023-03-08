@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.threec.beans.Post;
 import com.threec.service.PostService;
 
-@RequestMapping("/post")
 @RestController
+@RequestMapping("/post")
 @CrossOrigin("*")
 public class PostController {
 	

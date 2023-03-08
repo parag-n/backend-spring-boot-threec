@@ -18,7 +18,7 @@ public interface ConsumerService {
 
 	Consumer addPost(Consumer consumer);
 
-	Consumer getLogin(String username);
+	Consumer getLogin(Consumer consumer);
 
 
 }
