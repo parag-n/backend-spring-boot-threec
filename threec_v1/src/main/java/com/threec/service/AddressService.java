@@ -14,4 +14,6 @@ public interface AddressService {
 
 	boolean deleteAddress(int addressId);
 
+	List<Address> getAddressByConsumer(int consumerId);
+
 }

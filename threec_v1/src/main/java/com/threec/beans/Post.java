@@ -41,6 +41,6 @@ public class Post {
 	private String status;//bids open 2. close 3.pending work 4. work completed 
 	@OneToOne(fetch = FetchType.EAGER)
 	private Address address;
-	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Bid> bids;
 }

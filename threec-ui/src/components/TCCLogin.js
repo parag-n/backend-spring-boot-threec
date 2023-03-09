@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function TCLogin() {
+export default function TCCLogin() {
     
     // states to keep the username and password
     let [user, setU]=useState();
@@ -47,7 +47,7 @@ export default function TCLogin() {
     }
     return (
         <div>
-            <div className="container-fluid mt-5 p-5 rounded-5 bg-secondary" style={{maxWidth:"25rem"}}>
+            <div className="container-fluid p-5 rounded-5 bg-secondary" style={{maxWidth:"25rem"}}>
                 {
                     message==null?<></>:<></>       // work on this one later
                 }
@@ -69,7 +69,9 @@ export default function TCLogin() {
                     
                     {/* </div> */}
                     
-                    <button type="submit" className="btn btn-success">Login</button>
+                    
+                <button type="submit" className="btn btn-success m-2">Login</button>
+                <button type="reset" className="btn btn-danger m-2">Reset</button>
                 
                 </form>
             </div>

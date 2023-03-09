@@ -3,25 +3,28 @@ import TCCRegister from './TCCRegister';
 import TCSRegister from './TCSRegister';
 
 export default function Register() {
-  const [showConsumerForm, setShowConsumerForm] = useState(false);
-  const [showServiceProviderForm, setShowServiceProviderForm] = useState(false);
+  // storing flag in state to switch between consumer and service provider login on click
+  const [isConsumer, setIsConsumer] = useState(true);
 
-  const handleConsumerClick = () => {
-    setShowConsumerForm(true);
-    setShowServiceProviderForm(false);
+  // handler for consumer tab click
+  const consumerHandler = () => {
+    setIsConsumer(true)
   };
 
-  const handleServiceProviderClick = () => {
-    setShowConsumerForm(false);
-    setShowServiceProviderForm(true);
+  // handler for service provider click
+  const spHandler = () => {
+    setIsConsumer(false);
   };
 
   return (
-    <div>
-      <button onClick={handleConsumerClick}>Consumer Register</button>
-      <button onClick={handleServiceProviderClick}>Service Provider Register</button>
-      {showConsumerForm && <TCCRegister />}
-      {showServiceProviderForm && <TCSRegister />}
+    <div className='container mt-5 d-flex flex-column'>
+      <div className='btn-group mx-auto w-100' role="group" style={{ maxWidth: "40rem" }}>
+        <button className='btn btn-primary' onClick={consumerHandler}>Consumer Register</button>
+        <button className='btn btn-primary' onClick={spHandler}>Service Provider Register</button>
+      </div>
+      {
+        isConsumer ? <TCCRegister /> : <TCSRegister />
+      }
     </div>
   );
 }

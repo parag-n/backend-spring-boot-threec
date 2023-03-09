@@ -63,5 +63,10 @@ public class PostServiceImpl implements PostService{
 		}
 		return false;
 	}
+
+	@Override
+	public List<Post> readByExpertise(List<Integer> elist) {
+		return postDao.readByExpertise(elist);
+	}
 	
 }

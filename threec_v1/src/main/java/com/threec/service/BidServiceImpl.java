@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.threec.beans.Bid;
+import com.threec.beans.Consumer;
 import com.threec.dao.BidDao;
 
 @Service
@@ -34,5 +35,31 @@ public class BidServiceImpl implements BidService{
 		if(bid==null) return false;
 		bidDao.delete(bid);
 		return true;
+	}
+
+	@Override
+	public List<Bid> getBySP(int spid) {
+		return bidDao.getBySP(spid);
+	}
+
+	@Override
+	public List<Bid> getByPost(int postId) {
+		return bidDao.getByPost(postId);
+	}
+
+	@Override
+	public Bid acceptBid(int bidId) {
+		Bid accepted=readBid(bidId);
+		if(accepted!=null) {
+			accepted.setAccepted(true);
+			bidDao.save(accepted);
+			return accepted;
+		}
+		return null;
+	}
+
+	@Override
+	public Consumer getContact(int bidId) {
+		return bidDao.getContact(bidId);
 	}
 }

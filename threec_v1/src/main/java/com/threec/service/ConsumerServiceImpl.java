@@ -56,7 +56,7 @@ public class ConsumerServiceImpl implements ConsumerService{
 		if(consumer.getFullname()!=null) old.setFullname(consumer.getFullname());
 		if(consumer.getEmail()!=null) old.setEmail(consumer.getEmail());
 		if(consumer.getPassword()!=null) old.setPassword(consumer.getPassword());
-		if(consumer.getPhone()!=null) old.setPhone(consumer.getPhone());
+		if(consumer.getPhone()!=0) old.setPhone(consumer.getPhone());
 		if(consumer.getUsername()!=null) old.setUsername(consumer.getUsername());
 		return consumerDao.save(old);
 	}

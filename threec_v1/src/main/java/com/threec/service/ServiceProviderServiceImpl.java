@@ -38,5 +38,17 @@ public class ServiceProviderServiceImpl implements ServiceProviderService{
 		serviceProviderDao.delete(sp);
 		return true;
 	}
+
+	@Override
+	public ServiceProvider getLogin(ServiceProvider sp) {
+		ServiceProvider valid=serviceProviderDao.getLogin(sp.getUsername());
+		if(valid==null) return null;
+		if(valid.getPassword().equals(sp.getUsername())) {
+			ServiceProvider readSP=readServiceProvider(valid.getServiceProviderId());
+			readSP.setPassword(null);
+			return readSP;
+		}
+		return null;
+	}
 	
 }

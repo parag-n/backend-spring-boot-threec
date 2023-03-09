@@ -4,42 +4,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
-export default function TCCAddPost(){
+export default function TCCNewPost(){
 
+    // method to save the post into the redux store
+    let postDispatch=useDispatch();
+
+    // extracting link from the redux store
+    let link = useSelector((state) => {return state.link})
+
+    // retrieving consumer id from redux store
+    let consumerId=useSelector((state)=>{
+        return state.consumer.consumerId
+    })
+
+    // method to navigate user to another component
+    let navi=useNavigate();
 
     // storing list of categories in state
     let [categories, setCats]=useState([]);
 
-    let navi=useNavigate();
-
     // storing list of addresses in state
     let [addresses, setAdds]=useState([])
 
-    // fetching all the categories as soon as the component is mounted
-    useEffect(()=>
-    {
-        axios.get("http://192.168.1.100:7070/expertise/expertises")
-        .then(
-            (response)=>{
-                setCats(response.data)
-            },
-            ()=>{
-                // registering callback function for when the promise is rejected
-                setCats([])
-            }
-        )
-        
-        axios.get("http://192.168.1.100:7070/address/addresses")
-        .then(
-            (response)=>{
-                setAdds(response.data)
-            },
-            ()=>{
-                // registering callback function for when the promise is rejected
-                setAdds([])
-            }
-        )
-    },[])
+    // keeping almost final post in state to use it in final post object
+    let [post,setPost]=useState({});
 
     // storing expertiseId in state for using it in the dummy post
     let [expertiseId,setExp]=useState();
@@ -47,14 +35,8 @@ export default function TCCAddPost(){
     // storing addressId in state for using it in the dummy post
     let [addressId, setAddId]=useState();
 
-    let consumerId=useSelector((state)=>{
-        return state.consumer.consumerId
-    })
-
-    let savePost=useDispatch();
-
-    // creating a dummy post to use it in json
-    let dummypost={
+    // creating a post template to use it in json
+    let templatePost={
         category:{
             expertiseId
         },
@@ -66,12 +48,38 @@ export default function TCCAddPost(){
         }
     }
 
-    // keeping almost final post in state to use it in final post object
-    let [post,setPost]=useState({});
+    // fetching all the categories as soon as the component is mounted
+    useEffect(()=>
+    {
+        axios.get(link+`/expertise/expertises`)
+        .then(
+            (response)=>{
+                setCats(response.data)
+            },
+            ()=>{
+                // registering callback function for when the promise is rejected
+                setCats([])
+            }
+        )
+        
+        axios.get(link+`/address/consumer/`+consumerId)
+        .then(
+            (response)=>{
+                console.log(response.data)
+                setAdds(response.data)
+            },
+            ()=>{
+                // registering callback function for when the promise is rejected
+                setAdds([])
+            }
+        )
+    },[link, consumerId])
 
+
+    
     // callback function to store input in the post object
     let inputHandler=(e)=>{
-        setPost({...post, ...dummypost, [e.target.name]: e.target.value})
+        setPost({...post, ...templatePost, [e.target.name]: e.target.value})
         console.log(e.target.value)
         console.log(post)
     }
@@ -90,20 +98,24 @@ export default function TCCAddPost(){
     // callback function to create a new post and post it to server
     let createPost=(e)=>{
         e.preventDefault();
-        setPost({...post, ...dummypost})
-        // console.log(post);
-        axios.post("http://192.168.1.100:7070/post/posts", post)
+        
+        setPost({...post, ...templatePost})
+
+        axios.post(link+`/post/posts`, post)
+        
         .then((response)=>{
-            savePost({type:"savepost", newpost:response.data})
+            postDispatch({type:"savepost", newpost:response.data})
             navi("/myaccount")
 
         })
+        
         .catch(()=>{})
         
     }
 
     return(
         <div className="container m-4 mx-auto bg-light p-3 rounded-3">
+            <form  onSubmit={createPost}>
             <table className="table table-dark table-responsive-sm">
                 <thead className="table-dark">
                     <tr>
@@ -124,8 +136,8 @@ export default function TCCAddPost(){
                             
                         </td>
                         <td>
-                            <select className="form-select form-select-sm" name="address" onChange={addressSelect} required>
-                                <option selected disabled>select address</option>
+                            <select className="form-select form-select-sm" name="address" defaultValue={9999} onChange={addressSelect} required>
+                                <option value={9999} disabled>select address</option>
                                 
                                 {
                                     addresses.map((add)=>{
@@ -143,10 +155,11 @@ export default function TCCAddPost(){
                         </td>
                     </tr>
                     <tr className="table-dark">
-                        <button type="button" className="btn btn-success" onClick={createPost}>Submit</button>
+                        <button type="submit" className="btn btn-success">Submit</button>
                     </tr>
                 </tbody>
             </table>
+            </form>
         </div>
     )
 }

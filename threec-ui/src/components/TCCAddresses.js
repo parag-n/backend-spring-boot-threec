@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { BsHouseAddFill } from "../../node_modules/react-icons/bs"
 export default function TCCAddresses(props) {
-    let addresses = props.addresses;
-    // let postss=useSelector(state=>state)
 
-    // console.log(postss);
+    let addresses = props.addresses;
+
     return (
         <div className="card">
             <h5 className="text-center" >YOUR ADDRESSES</h5>
@@ -14,7 +14,7 @@ export default function TCCAddresses(props) {
                     <div className="card-body">
                         {/* <h5 className="card-title">Checking the title</h5> */}
                         {/* <h5 className="card-title">Hello this is title</h5> */}
-                        <p className="card-text text-center"> <BsHouseAddFill size="2em"></BsHouseAddFill> </p>
+                        <p className="card-text text-center"> <Link to="/newaddress"><BsHouseAddFill size="2em"></BsHouseAddFill></Link> </p>
                     </div>
                 </div>
                 {

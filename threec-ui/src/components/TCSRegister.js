@@ -1,15 +1,57 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
 export default function TCSRegister() {
 
+    // extracting link from the redux store
+    let link = useSelector((state) => {return state.link})
+
+    // let link=useSelector((state)=>{console.log(state.serverlink);return state.serverlink})
+    let [categories, setCats] = useState([]);
+
+    // fetching the expertises as soon as the component is loaded
+    useEffect(() => {
+        // console.log(link)
+        axios.get(link + `/expertise/expertises`)
+
+            .then((response) => {
+                setCats(response.data)
+                console.log(response.data)
+            })
+
+            .catch(() => { })
+    }, [link])
+
+
+
     // navigate hook to navigate to the desired component
     let nav = useNavigate();
 
     // keeping the consumer in state
-    let [SP, setSP] = useState();
+    let [SP, setSP] = useState({ expertise: [] });
+
+    // let expertise=[]
+
+    let catHandler = (e) => {
+        let exp = {
+            expertiseId: Number.parseInt(e.target.id)
+        }
+        if (e.target.checked) {
+            console.log("checked");
+            SP.expertise.push(exp);
+            // console.log(expertise)
+        }
+        else {
+            console.log("unchecked");
+            SP.expertise.pop(exp);
+            // console.log(expertise)
+        }
+        console.log(SP);
+    }
 
     // callback function to populate the consumer object whenever an input is given
     let inputHandler = (e) => {
@@ -23,10 +65,11 @@ export default function TCSRegister() {
         e.preventDefault();
 
         // checking the consumer details entered by the user
-        console.log(SP);
+        console.log(SP)
+
 
         // using axios to post the consumer details
-        axios.post("http://localhost:7070/serviceprovider/serviceproviders", SP)
+        axios.post(link+`/serviceprovider/serviceproviders`, SP)
 
             .then(
                 // if the promise if fulfilled then print the data on console  
@@ -45,7 +88,7 @@ export default function TCSRegister() {
 
 
     return (
-        <div className="container mt-5 px-5 py-5 rounded-5 bg-secondary" style={{ maxWidth: "40rem" }}>
+        <div className="container px-5 py-5 rounded-5 bg-secondary" style={{ maxWidth: "40rem" }}>
 
             <h2 className="mb-3 text-center">SERVICE PROVIDER REGISTRATION</h2>
 
@@ -94,7 +137,19 @@ export default function TCSRegister() {
 
                 </div>
 
-                <button type="submit" className="btn btn-success">Register</button>
+                <div className="row d-flex flex-inline">
+                    {
+                        categories.map((cat) => {
+                            return <div className="form-check form-switch mb-3 col ms-3 mt-2">
+                                <input className="form-check-input" type="checkbox" id={cat.expertiseId} key={cat.expertiseId} onChange={catHandler} />
+                                <label className="form-check-label" htmlFor={cat.expertiseId}>{cat.name}</label>
+                            </div>
+                        })
+                    }
+                </div>
+
+                <button type="submit" className="btn btn-success m-2">Register</button>
+                <button type="reset" className="btn btn-danger m-2">Reset</button>
 
             </form>
         </div>

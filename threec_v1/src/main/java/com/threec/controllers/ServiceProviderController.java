@@ -27,6 +27,8 @@ public class ServiceProviderController {
 	// CREATE
 	@PostMapping("/serviceproviders")
 	public ResponseEntity<ServiceProvider> createServiceProvider(@RequestBody ServiceProvider sp){
+		System.out.println(sp.getExpertise());
+		
 		ServiceProvider created=serviceProviderService.createServiceProvider(sp);
 		if(created!=null) return ResponseEntity.ok(created);
 		return new ResponseEntity<ServiceProvider>(HttpStatus.BAD_REQUEST);
@@ -56,6 +58,14 @@ public class ServiceProviderController {
 		boolean status=serviceProviderService.deleteSP(spid);
 		if(status) return ResponseEntity.ok("Deleted Successfully!");
 		return new ResponseEntity<String>("Service Provider not present!", HttpStatus.NOT_FOUND);
+	}
+	
+	// LOGIN
+	@PostMapping("/login")
+	public ResponseEntity<ServiceProvider> login(@RequestBody ServiceProvider sp){
+		ServiceProvider valid=serviceProviderService.getLogin(sp);
+		if(valid!=null) return ResponseEntity.ok(valid);
+		return new ResponseEntity<ServiceProvider>(HttpStatus.NOT_FOUND);
 	}
 	
 }

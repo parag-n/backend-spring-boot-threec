@@ -1,29 +1,23 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Provider, useSelector } from "react-redux";
-import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TCHome from "./components/TCHome";
 import Login from "./components/Login";
 import TCMyAccount from "./components/TCMyAccount";
 import TCNavbar from "./components/TCNavbar";
-import TCCAddPost from "./components/TCCAddPost";
+import TCCNewPost from "./components/TCCNewPost";
 import Register from "./components/Register";
-import TCReduxStore from "./components/TCReduxStore"
-import { useState } from "react";
+import TCSAccount from "./components/TCSAccount";
+import TCSNewBid from "./components/TCSNewBid";
+import TCCNewAddress from "./components/TCCNewAddress";
+import TCCShowBids from "./components/TCCShowBids";
 
 
 export default function ThreeC() {
 
-    // let navi = useNavigate();
-    // let user = useSelector((state) => { console.log(state.user); return state.user; })
-    // let [loggedIn, setLogin]=useState(false);
-    // useSelector(()=>{})
-
-
     return (
         <div>
-            <Provider store={TCReduxStore}>
-                {/* <ThreeC></ThreeC> */}
-                <BrowserRouter>
+            {/* <ThreeC></ThreeC> */}
+            <BrowserRouter>
 
                     <TCNavbar></TCNavbar>
 
@@ -36,15 +30,23 @@ export default function ThreeC() {
 
                         <Route path="/login" element={<Login />}></Route>
 
-                        <Route path="/myaccount" element={<TCMyAccount/>}></Route>
+                        <Route path="/myaccount" element={<TCMyAccount />}></Route>
 
-                        <Route path="/newpost" element={<TCCAddPost />}></Route>
+                        <Route path="/showbids" element={<TCCShowBids/>}></Route>
 
+                        <Route path="/newpost" element={<TCCNewPost />}></Route>
 
-                        <Route path="*" element={<TCHome/>}></Route>
+                        <Route path="/newaddress" element={<TCCNewAddress/>}></Route>
+
+                        <Route path="/spaccount" element={<TCSAccount />}></Route>
+
+                        <Route path="/tcsbid" element={<TCSNewBid />}></Route>
+
+                        <Route path="*" element={<TCHome />}></Route>
+ 
                     </Routes>
-                </BrowserRouter>
-            </Provider>
+
+            </BrowserRouter>
         </div>
     )
 }

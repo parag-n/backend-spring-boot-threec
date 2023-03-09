@@ -62,4 +62,14 @@ public class AddressController {
 		if(status) return ResponseEntity.ok("Deleted successfully!");
 		return new ResponseEntity<String>("Address not present", HttpStatus.NOT_FOUND);
 	}
+	
+	// LIST OF ADDRESSES BY CONSUMER ID
+	@GetMapping("/consumer/{consumerId}")
+	public ResponseEntity<List<Address>> getAddressByConsumer(@PathVariable int consumerId){
+		System.out.println(consumerId);
+		List<Address> alist=addressService.getAddressByConsumer(consumerId);
+		if(alist!=null) return ResponseEntity.ok(alist);
+		return new ResponseEntity<List<Address>>(HttpStatus.NOT_FOUND);
+	}
+	
 }

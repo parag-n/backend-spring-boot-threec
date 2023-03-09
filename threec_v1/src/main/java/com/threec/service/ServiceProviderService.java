@@ -14,4 +14,6 @@ public interface ServiceProviderService {
 
 	boolean deleteSP(int spid);
 
+	ServiceProvider getLogin(ServiceProvider sp);
+
 }

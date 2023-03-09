@@ -2,6 +2,7 @@ package com.threec.beans;
 
 import java.util.List;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -13,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +26,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-//@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email", "phone"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email", "phone"}))
 public class ServiceProvider { 
 	@Id
 	@GeneratedValue
@@ -43,6 +46,13 @@ public class ServiceProvider {
 	@JoinTable(name="sp_exp_map", joinColumns = {@JoinColumn(name="serviceProviderId")}, 
 	inverseJoinColumns = {@JoinColumn(name="expertiseId")})
 	private List<Expertise> expertise;
-	@OneToMany(mappedBy = "serviceProvider", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "serviceProvider", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Bid> bids;
+	
+	public ServiceProvider(int servicePId, String username, String password) {
+		this.serviceProviderId=servicePId;
+		this.username=username;
+		this.password=password;
+	}
+	
 }

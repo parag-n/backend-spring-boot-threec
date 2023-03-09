@@ -23,12 +23,13 @@ public class Bid {
 	@Id
 	@GeneratedValue
 	private int bidId;
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Post post;
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private ServiceProvider serviceProvider;
 	private double amount;
 	private String note;
+	private boolean accepted;
 }

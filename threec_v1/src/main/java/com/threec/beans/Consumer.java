@@ -32,7 +32,7 @@ public class Consumer {
 	private int consumerId;
 	// BASIC DETAILS
 	private String fullname;
-	private String phone;
+	private long phone;
 	private String email;
 	// AUTHENTICATION DETAILS
 	private String username;
@@ -57,5 +57,11 @@ public class Consumer {
 	public Consumer(String username, String password) {
 		this.username=username;
 		this.password=password;
+	}
+	
+	// constructor for service provider
+	public Consumer(String fullname, long phone) {
+		this.fullname=fullname;
+		this.phone=phone;
 	}
 }
