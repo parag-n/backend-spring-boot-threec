@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function TCCNewPost() {
@@ -140,7 +140,7 @@ export default function TCCNewPost() {
                                     return <option key={add.addressId} value={add.addressId}>{add.details + ", " + add.city + " - " + add.pincode}</option>
                                 })
                             }
-                            <option className="">Add New Address</option>
+                            {/* <option className=""><a href="/newaddress">New</a></option> */}
                         </select>
                     </div>
 

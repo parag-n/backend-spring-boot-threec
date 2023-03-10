@@ -30,12 +30,10 @@ export default function TCBtnLoggedIn() {
             {
                 userflag ?
                     <>
-                    <select className="select">
-                        <option>Hello 1</option>
-                        <option>Hello 1</option>
-                    </select>
-                    <Link to={who==="sp"?"/spaccount":"/myaccount"} ><PersonFill size="2em"></PersonFill></Link>
-                        <button className="btn btn-danger" onClick={logout}>Logout</button></>
+                        <button className="btn btn-danger me-2" onClick={logout}>Logout</button>
+                        <Link to={who==="sp"?"/spaccount":"/myaccount"} ><PersonFill size="2em"></PersonFill></Link>
+                    </>
+                        
                     : ""
             }
 

@@ -6,6 +6,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 export default function TCSNewBid(props){
 
+    let link=useSelector((state)=>{
+        return state.link;
+    })
     let navi=useNavigate();
     let linkstate=useLocation();
     let post=linkstate.state;
@@ -27,7 +30,7 @@ export default function TCSNewBid(props){
     // checking
     useEffect(()=>{
         console.log(post.postId)
-    },[])
+    },[post])
 
     let inputHandler=(e)=>{
         setbid({...bid, [e.target.name]:e.target.value})
@@ -39,7 +42,7 @@ export default function TCSNewBid(props){
         // console.log(bid)
         // dispatchbid({type:"newbid", data:bid})
 
-        axios.post("http://localhost:7070/bid/bids", bid)
+        axios.post(link+`/bid/bids`, bid)
         .then((response)=>{
             console.log(response.data)
             navi("/spaccount")
