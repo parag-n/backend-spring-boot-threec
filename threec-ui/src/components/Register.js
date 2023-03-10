@@ -17,10 +17,10 @@ export default function Register() {
   };
 
   return (
-    <div className='container mt-5 d-flex flex-column'>
+    <div className='container mt-5 d-flex flex-column'  >
       <div className='btn-group mx-auto w-100' role="group" style={{ maxWidth: "40rem" }}>
-        <button className='btn btn-primary' onClick={consumerHandler}>Consumer Register</button>
-        <button className='btn btn-primary' onClick={spHandler}>Service Provider Register</button>
+        <button className='btn btn-primary' onClick={consumerHandler}>Consumer</button>
+        <button className='btn btn-primary' onClick={spHandler}>Service Provider</button>
       </div>
       {
         isConsumer ? <TCCRegister /> : <TCSRegister />

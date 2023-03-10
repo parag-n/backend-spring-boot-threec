@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import TCCAddresses from "./TCCAddresses";
 import TCCPosts from "./TCCPosts";
 
-export default function TCMyAccount() {
+export default function TCCAccount() {
 
     let consumer=useSelector((state)=>{
         return state.consumer;

@@ -54,9 +54,9 @@ export default function TCSLogin() {
     }
     return (
         <div>
-            <div className="container-fluid p-5 rounded-5 bg-secondary" style={{ maxWidth: "25rem" }}>
+            <div className="container p-5 rounded-5 bg-secondary" style={{ maxWidth: "23rem" }}>
                 {flag ? alert : <></>}
-                <h2>Service Provider Login</h2>
+                <h2 className="mb-3 text-center">SERVICE PROVIDER LOGIN</h2>
                 <form onSubmit={loginHandler}>
                     {/* <div className="row"> */}
                     <div className="mb-3 col">

@@ -77,7 +77,7 @@ export default function TCSRegister() {
                 (res) => {
                     console.log(res.data)
 
-                    nav("/login")
+                    nav("/login",{state:{message:"Registered successfully", show:true}})
                 },
                 // if the request is rejected, print the message onto the console
                 () => {

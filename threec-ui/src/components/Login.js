@@ -8,12 +8,12 @@ export default function Login() {
   // retrieving state from <Link> tag
   let linkstate=useLocation();
 
-  let message=linkstate.message;
+  let message="Registered successfully!"
 
-  let [showMessage, toggleShow]=useState(true)
-  // toggleShow(linkstate.show);
+  let [showMessage, toggleShow]=useState(false)
 
-  let toggle=()=>{toggleShow(!showMessage)}
+  let toggle=()=>{console.log("check",linkstate); toggleShow(!showMessage); }
+ 
   // storing flag in state to switch between consumer and service provider login on click
   const [isConsumer, setIsConsumer] = useState(true);
 
@@ -28,13 +28,13 @@ export default function Login() {
   };
 
   let myalert =
-    <Toast show={showMessage} onClose={toggle}>
+    <Toast show={showMessage} onClose={toggle} className="text-center ">
       <Toast.Header>
         {/* <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" /> */}
-        <strong className="me-auto">Bootstrap</strong>
+        <strong className="me-auto">{message}</strong>
         <small>11 mins ago</small>
       </Toast.Header>
-      <Toast.Body>{message}</Toast.Body>
+      <Toast.Body>Congratulations! Your registration was successful!</Toast.Body>
     </Toast>
 
   return (

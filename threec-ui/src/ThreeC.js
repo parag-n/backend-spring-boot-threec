@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TCHome from "./components/TCHome";
 import Login from "./components/Login";
-import TCMyAccount from "./components/TCMyAccount";
+import TCCAccount from "./components/TCCAccount";
 import TCNavbar from "./components/TCNavbar";
 import TCCNewPost from "./components/TCCNewPost";
 import Register from "./components/Register";
@@ -30,7 +30,7 @@ export default function ThreeC() {
 
                         <Route path="/login" element={<Login />}></Route>
 
-                        <Route path="/myaccount" element={<TCMyAccount />}></Route>
+                        <Route path="/myaccount" element={<TCCAccount />}></Route>
 
                         <Route path="/showbids" element={<TCCShowBids/>}></Route>
 

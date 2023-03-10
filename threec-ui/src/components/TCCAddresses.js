@@ -19,7 +19,7 @@ export default function TCCAddresses(props) {
                 </div>
                 {
                     addresses.map((address) => {
-                        return <div className="card text-white bg-dark" style={{ maxWidth: "23rem" }}>
+                        return <div className="card text-white bg-dark" style={{ maxWidth: "10rem" }}>
                             <div className="card-header text-center">{address.city}</div>
                             <div className="card-body">
                                 {/* <h5 className="card-title">Checking the title</h5> */}
