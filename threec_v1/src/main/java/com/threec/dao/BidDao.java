@@ -20,4 +20,7 @@ public interface BidDao extends JpaRepository<Bid, Integer>{
 	@Query("select new Consumer(bid.post.consumer.fullname, bid.post.consumer.phone) from Bid bid where bidId=:n")
 	Consumer getContact(@Param("n")int bidId);
 
+	@Query("select b.serviceProvider.fullname from Bid b where b.bidId=:n")
+	String getSPbyBid(@Param("n") int bidId);
+
 }

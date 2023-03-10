@@ -25,7 +25,7 @@ const TCReducer = (
         posts:[],
 
         user:false,
-        link:`http://192.168.1.100:7070`
+        link:`http://localhost:7070`
     }, 
     action)=>{
 

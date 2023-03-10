@@ -63,6 +63,8 @@ public class ServiceProviderController {
 	// LOGIN
 	@PostMapping("/login")
 	public ResponseEntity<ServiceProvider> login(@RequestBody ServiceProvider sp){
+		System.out.println(sp.getUsername());
+		System.out.println(sp.getPassword());
 		ServiceProvider valid=serviceProviderService.getLogin(sp);
 		if(valid!=null) return ResponseEntity.ok(valid);
 		return new ResponseEntity<ServiceProvider>(HttpStatus.NOT_FOUND);

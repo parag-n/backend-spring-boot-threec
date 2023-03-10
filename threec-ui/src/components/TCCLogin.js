@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useState } from "react"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function TCCLogin() {
     
+    let link=useSelector((state)=>{
+        return state.link;
+    })
     // states to keep the username and password
     let [user, setU]=useState();
     let [pass, setP]=useState();
@@ -30,7 +33,7 @@ export default function TCCLogin() {
         e.preventDefault();
         
         // using post method to send the login request
-        axios.post("http://192.168.1.100:7070/consumer/login", consumer)
+        axios.post(link+`/consumer/login`, consumer)
         
         .then(
             // print the response data on console if the promise if fulfilled
