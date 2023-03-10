@@ -42,8 +42,16 @@ public class ServiceProviderServiceImpl implements ServiceProviderService{
 	@Override
 	public ServiceProvider getLogin(ServiceProvider sp) {
 		ServiceProvider valid=serviceProviderDao.getLogin(sp.getUsername());
-		if(valid==null) return null;
-		if(valid.getPassword().equals(sp.getUsername())) {
+//		System.out.println(valid.getServiceProviderId());
+//		System.out.println(valid.getPassword().hashCode());
+//		System.out.println(sp.getPassword());
+//		System.out.println(valid.getPassword());
+//		System.out.println(valid.getPassword().compareTo(sp.getUsername()));
+		if(valid==null) {
+			return null;
+		}
+		if(valid.getPassword().equals(sp.getPassword())) {
+			
 			ServiceProvider readSP=readServiceProvider(valid.getServiceProviderId());
 			readSP.setPassword(null);
 			return readSP;

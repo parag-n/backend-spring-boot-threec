@@ -24,6 +24,18 @@ export default function TCCShowBids() {
     // storing the bids in a state variable
     let [bids, setBids] = useState([])
 
+    // let spHandler=(bidId)=>{                         // temporary comment
+    //     axios.get(link + `/bid/sp/`+bidId)
+    //     .then((response)=>{
+    //         console.log(response.data)
+    //         return response.data;
+    //     })
+    //     .catch(()=>{
+    //         return null;
+    //     })
+
+    // }
+
     // retrieving all the bids related to the given bid from the server as soon as the component is loaded
     useEffect(() => {
 
@@ -32,9 +44,12 @@ export default function TCCShowBids() {
             .then((response) => {
                 console.log(response.data)
                 setBids(response.data)
+
             })
 
             .catch(() => { })
+
+        
 
     }, [link, post])
 
@@ -74,7 +89,7 @@ export default function TCCShowBids() {
                             keyunique++;
                             return <tr key={keyunique}><td>{bid.amount}</td>
                                 <td>{bid.note}</td>
-                                <td>loading</td>
+                                <td>Loading...</td>
                                 <td>
                                     {
                                         bid.accepted?<button className="btn btn-secondary" disabled> Accepted</button>:<button className="btn btn-warning" id={bid.bidId} name={bid.Id} onClick={acceptBid}>Accept Bid</button>

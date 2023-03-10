@@ -23,4 +23,6 @@ public interface BidService {
 
 	Consumer getContact(int bidId);
 
+	String getSPbyBid(int bidId);
+
 }

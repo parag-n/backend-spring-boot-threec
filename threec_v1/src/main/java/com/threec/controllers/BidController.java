@@ -92,5 +92,16 @@ public class BidController {
 		return new ResponseEntity<Consumer>(HttpStatus.NOT_FOUND);
 	}
 	
+	// get SP by bidId
+	@GetMapping("/spname/{bidId}")
+	public ResponseEntity<String> getSPbyBid(@PathVariable int bidId){
+		String name=bidService.getSPbyBid(bidId);
+		if(name!=null) {
+			System.out.println(name);
+			return ResponseEntity.ok(name);
+		}
+		return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+	}
+	
 	
 }

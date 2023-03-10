@@ -55,4 +55,9 @@ public class ServiceProvider {
 		this.password=password;
 	}
 	
+	public ServiceProvider(String username, String password) {
+		this.username=username;
+		this.password=password;
+	}
+	
 }

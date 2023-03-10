@@ -4,10 +4,10 @@ import TCBtnLoggedIn from "./TCBtnLoggedIn";
 export default function TCNavbar() {
 
     return (
-        <div style={{ backgroundColor: "rgb(157, 192, 139)" }}>
+        <div style={{ backgroundColor: "rgb(237, 241, 214)" }}>
 
             {/* Navigation bar */}
-            <nav className="navbar navbar-light bg-light pt-3 pb-3" >
+            <nav className="navbar navbar-light  pt-3 pb-3" >
 
                 <div className="d-flex mx-4">
 

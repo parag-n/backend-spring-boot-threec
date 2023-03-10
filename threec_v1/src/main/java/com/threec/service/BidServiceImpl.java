@@ -62,4 +62,9 @@ public class BidServiceImpl implements BidService{
 	public Consumer getContact(int bidId) {
 		return bidDao.getContact(bidId);
 	}
+
+	@Override
+	public String getSPbyBid(int bidId) {
+		return bidDao.getSPbyBid(bidId);
+	}
 }
