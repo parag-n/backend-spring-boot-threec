@@ -47,7 +47,7 @@ export default function TCCRegister() {
 
 
   return (
-    <div className="container mt-5 px-5 py-5 rounded-5 bg-secondary" style={{maxWidth:"40rem"}}>
+    <div className="container p-5 rounded-5 bg-secondary" style={{maxWidth:"40rem"}}>
 
       <h2 className="mb-3 text-center" >CONSUMER REGISTRATION</h2>
 
@@ -91,7 +91,9 @@ export default function TCCRegister() {
 
         </div>
 
-        <button type="submit" className="btn btn-success">Register</button>
+        
+        <button type="submit" className="btn btn-success m-2">Register</button>
+        <button type="reset" className="btn btn-danger m-2">Reset</button>
 
       </form>
     </div>

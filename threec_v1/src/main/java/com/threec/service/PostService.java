@@ -14,5 +14,7 @@ public interface PostService {
 
 	boolean deletePost(int postId);
 
+	List<Post> readByExpertise(List<Integer> elist);
+
 
 }

@@ -50,4 +50,9 @@ public class AddressServiceImpl implements AddressService{
 		}
 		return false;
 	}
+
+	@Override
+	public List<Address> getAddressByConsumer(int consumerId) {
+		return addressDao.getAddressByConsumer(consumerId);
+	}
 }

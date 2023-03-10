@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.threec.beans.Expertise;
 import com.threec.beans.Post;
 import com.threec.service.PostService;
 
@@ -57,6 +58,14 @@ public class PostController {
 		boolean status=postService.deletePost(postId);
 		if(status) return ResponseEntity.ok("Deleted successfully");
 		return new ResponseEntity<String>("Post not present", HttpStatus.NOT_FOUND);
+	}
+	
+	// POSTS BY EXPERTISE
+	@PostMapping("/expertise")
+	public ResponseEntity<List<Post>> postsByExpertise(@RequestBody List<Integer> elist){
+		List<Post> plist=postService.readByExpertise(elist);
+		if(plist==null) return new ResponseEntity<List<Post>>(HttpStatus.NOT_FOUND);
+		return ResponseEntity.ok(plist);
 	}
 	
 }
