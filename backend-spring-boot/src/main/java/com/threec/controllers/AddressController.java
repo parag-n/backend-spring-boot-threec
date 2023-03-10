@@ -25,27 +25,38 @@ public class AddressController {
 	@Autowired
 	AddressService addressService;
 	
+	// <======== CRUD OPERATIONS ========>
+	
 	// CREATE
 	@PostMapping("/addresses")
 	public ResponseEntity<Address> createAddress(@RequestBody Address address){
+		
 		Address created=addressService.createAddress(address);
+		
 		if(created!=null) return ResponseEntity.ok(created);
-		else return new ResponseEntity<Address>(HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<Address>(HttpStatus.BAD_REQUEST);
 	}
 	
 	// READ ONE
 	@GetMapping("/addresses/{addressId}")
 	public ResponseEntity<Address> readAddress(@PathVariable int addressId){
+		
 		Address address=addressService.readAddress(addressId);
+		
 		if(address!=null) return ResponseEntity.ok(address);
+		
 		return new ResponseEntity<Address>(HttpStatus.NOT_FOUND);
 	}
 	
 	// READ ALL
 	@GetMapping("/addresses")
 	public ResponseEntity<List<Address>> readAllAddresses(){
+		
 		List<Address> alist=addressService.readAddresses();
+		
 		if(alist!=null) return ResponseEntity.ok(alist);
+		
 		return new ResponseEntity<List<Address>>(HttpStatus.BAD_REQUEST);
 	}
 	
@@ -58,17 +69,24 @@ public class AddressController {
 	// DELETE
 	@DeleteMapping("/addresses/{addressId}")
 	public ResponseEntity<String> deleteAddress(@PathVariable int addressId){
+		
 		boolean status=addressService.deleteAddress(addressId);
+		
 		if(status) return ResponseEntity.ok("Deleted successfully!");
+		
 		return new ResponseEntity<String>("Address not present", HttpStatus.NOT_FOUND);
 	}
+	
+	// <======== SPECIAL OPERATIONS ========>
 	
 	// LIST OF ADDRESSES BY CONSUMER ID
 	@GetMapping("/consumer/{consumerId}")
 	public ResponseEntity<List<Address>> getAddressByConsumer(@PathVariable int consumerId){
-		System.out.println(consumerId);
+		
 		List<Address> alist=addressService.getAddressByConsumer(consumerId);
+		
 		if(alist!=null) return ResponseEntity.ok(alist);
+		
 		return new ResponseEntity<List<Address>>(HttpStatus.NOT_FOUND);
 	}
 	

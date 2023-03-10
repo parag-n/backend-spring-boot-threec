@@ -18,15 +18,18 @@ public class AddressServiceImpl implements AddressService{
 	@Autowired
 	ConsumerDao consumerDao;
 	
+	
 	@Override
 	public Address createAddress(Address address) {
-//		System.out.println(address.getConsumer());
+		
 		int consumerId=address.getConsumer().getConsumerId();
 		Optional<Consumer> op=consumerDao.findById(consumerId);
+		
 		if(op.isPresent()) {
 			Consumer consumer=op.get();
 			address.setConsumer(consumer);
 		}
+		
 		return addressDao.save(address);
 	}
 
