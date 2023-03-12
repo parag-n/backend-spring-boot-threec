@@ -7,8 +7,8 @@ Service provider is anyone who wants to provide the service in return of a payme
 ### Working Mechanism
 <li> Consumer, who wants any particular service, will create a post about.
 <li> It will include the following attributes -
-      `title`
-      `description`
-      `date and time of service requirement`
-      `address`
-      `category of service`
+- `title`
+- `description`
+- `date and time of service requirement`
+- `address`
+- `category of service`
