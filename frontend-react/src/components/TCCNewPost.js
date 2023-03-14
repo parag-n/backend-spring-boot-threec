@@ -1,7 +1,7 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 
 export default function TCCNewPost() {
@@ -13,9 +13,7 @@ export default function TCCNewPost() {
     let link = useSelector((state) => { return state.link })
 
     // retrieving consumer id from redux store
-    let consumerId = useSelector((state) => {
-        return state.consumer.consumerId
-    })
+    let consumerId = useSelector((state) => { return state.consumer.consumerId })
 
     // method to navigate user to another component
     let navi = useNavigate();
@@ -35,6 +33,9 @@ export default function TCCNewPost() {
     // storing addressId in state for using it in the dummy post
     let [addressId, setAddId] = useState();
 
+    // storing date in state to parse it
+    let [date, setDate] = useState();
+
     // creating a post template to use it in json
     let templatePost = {
         category: {
@@ -45,33 +46,36 @@ export default function TCCNewPost() {
         },
         consumer: {
             consumerId
-        }
+        },
+        date
     }
 
-    // fetching all the categories as soon as the component is mounted
     useEffect(() => {
+        // fetching all the categories as soon as the component is mounted
         axios.get(link + `/expertise/expertises`)
-            .then(
-                (response) => {
-                    setCats(response.data)
-                },
-                () => {
-                    // registering callback function for when the promise is rejected
-                    setCats([])
-                }
-            )
+        .then(
+            (response) => {
+                setCats(response.data)
+        })
 
+        // registering callback function for when the promise is rejected
+        .catch(() => {
+            setCats([])
+        })
+        
+        
+        // fetching all the addresses of the consumer
         axios.get(link + `/address/consumer/` + consumerId)
-            .then(
-                (response) => {
-                    console.log(response.data)
-                    setAdds(response.data)
-                },
-                () => {
-                    // registering callback function for when the promise is rejected
-                    setAdds([])
-                }
-            )
+        .then(
+            (response) => {
+                console.log(response.data)
+                setAdds(response.data)
+            })
+
+        // registering callback function for when the promise is rejected
+        .catch(() => {
+            setAdds([])
+        })
     }, [link, consumerId])
 
 
@@ -79,14 +83,23 @@ export default function TCCNewPost() {
     // callback function to store input in the post object
     let inputHandler = (e) => {
         setPost({ ...post, ...templatePost, [e.target.name]: e.target.value })
-        console.log(e.target.value)
-        console.log(post)
+        // console.log(e.target.value)
+        // console.log(post)
     }
+
+    // callback function to store date when user changes it
+    let dateHandler = ((e) => {
+        // console.log(e.target.value)
+        console.log(Date.parse(e.target.value))
+        setDate(Date.parse(e.target.value))
+        // console.log(typeof (Date.parse(e.target.value)))
+        // console.log(Date.now())
+    })
 
     // callback function to set the expertise when a category is selected
     let categorySelect = (e) => {
         setExp(e.target.value);
-        console.log(post)
+        // console.log(post)
     }
 
     // callback function to set the address when an address is selected
@@ -98,18 +111,18 @@ export default function TCCNewPost() {
     let createPost = (e) => {
         e.preventDefault();
 
+        // creating the final post object
         setPost({ ...post, ...templatePost })
 
+        // sending the final post object to the server
         axios.post(link + `/post/posts`, post)
 
-            .then((response) => {
-                postDispatch({ type: "savepost", newpost: response.data })
-                navi("/myaccount")
+        .then((response) => {
+            postDispatch({ type: "savepost", newpost: response.data })
+            navi("/myaccount")
+        })
 
-            })
-
-            .catch(() => { })
-
+        .catch(() => { })
     }
 
     return (
@@ -117,6 +130,14 @@ export default function TCCNewPost() {
             <h1 className="text-center">New Post</h1>
             <form onSubmit={createPost} className="m-3">
                 <div className="row d-flex flex-row">
+
+                    {/* Title */}
+                    <div className="card text-white bg-dark mb-2" style={{ maxWidth: "23rem" }}>
+                        <div className="card-header text-center">Title</div>
+                        <input className="form-control mb-3" autoFocus placeholder="What do you need help with?" type="text" name="title" id="title" onChange={inputHandler} required style={{ maxWidth: "23rem" }}></input>
+                    </div>
+
+                    {/* Category */}
                     <div className="card text-white bg-dark mb-2" style={{ maxWidth: "23rem" }}>
                         <div className="card-header text-center">Category</div>
                             <select className="form-control form-select form-select-sm mb-3" name="category" defaultValue={88888} onChange={categorySelect} required>
@@ -129,7 +150,8 @@ export default function TCCNewPost() {
                             </select>
                         
                     </div>
-
+                    
+                    {/* Addresses */}
                     <div className="card text-white bg-dark mb-2" style={{ maxWidth: "23rem" }}>
                         <div className="card-header text-center">Address</div>
                         <select className="form-control form-select form-select-sm mb-3" name="address" defaultValue={9999} onChange={addressSelect} required>
@@ -143,19 +165,23 @@ export default function TCCNewPost() {
                             {/* <option className=""><a href="/newaddress">New</a></option> */}
                         </select>
                     </div>
-
+                     
+                    {/* Date and time */}
                     <div className="card text-white bg-dark mb-2" style={{ maxWidth: "23rem" }}>
-                        <div className="card-header text-center">Title</div>
-                        <input className="form-control mb-3" type="text-area" name="title" id="title" onChange={inputHandler} required style={{ maxWidth: "23rem" }}></input>
+                        <div className="card-header text-center">Date and Time</div>
+                        <input className="form-control mb-3" name="servicedate" id="servicedate" type="datetime-local" onChange={dateHandler} required style={{ maxWidth: "23rem" }}></input>
                     </div>
                     
-                    
+                    {/* Description */}
                     <div className="card text-white bg-dark mb-2" style={{ maxWidth: "23rem" }}>
                         <div className="card-header text-center">Description</div>
-                        <input className="form-control mb-3" type="text-area" name="description" id="description" onChange={inputHandler} required style={{ maxWidth: "23rem" }}></input>
+                        <textarea className="form-control mb-3" placeholder="Please describe the problem in a few words.."
+                            rows="3" name="description" id="description" onChange={inputHandler}
+                            required style={{ maxWidth: "23rem" }}></textarea>
                     </div>
-                    
                 </div>
+
+                {/* Buttons */}
                 <div className="d-flex flex-row">
                 <button type="submit" className="btn btn-success me-2">Submit</button>
                 <button type="reset" className="btn btn-danger">Reset</button>
