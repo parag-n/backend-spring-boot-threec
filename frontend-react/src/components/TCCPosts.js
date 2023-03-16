@@ -28,6 +28,7 @@ export default function TCCPosts(props) {
                                 {/* <h5 className="card-title">Checking the title</h5> */}
                                 {/* <h5 className="card-title">Hello this is title</h5> */}
                                 <p className="card-text">{post.description}</p>
+                                
                             </div>
                             <Link to="/showbids" state={post} className="btn btn-success p-0"> Show bids</Link>
                         </div>
