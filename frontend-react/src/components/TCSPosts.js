@@ -42,7 +42,8 @@ export default function TCSPosts(props) {
                                 {/* <h5 className="card-title">Checking the title</h5> */}
                                 {/* <h5 className="card-title">Hello this is title</h5> */}
                                 <p className="card-text "> {post.description}</p>
-                                <p className="card-text font-italic">Address: {post.address.details}, {post.address.locality}, {post.address.city}-{post.address.pincode}</p>
+                                <p>{post.date}</p>
+                                <p className="card-text font-italic">Address: {post.address.locality}, {post.address.city}-{post.address.pincode}</p>
                                 <Link className='btn btn-success' to="/tcsbid" state={post}>BID</Link>
                             </div>
                         </div>

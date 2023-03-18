@@ -1,11 +1,11 @@
 package com.threec.beans;
 
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import jakarta.persistence.AccessType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,7 +19,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,6 +37,7 @@ public class Post {
 	private String description;
 	@OneToOne(fetch = FetchType.EAGER)
 	private Expertise category;
+	private Date date;
 	private String status;//bids open 2. close 3.pending work 4. work completed 
 	@OneToOne(fetch = FetchType.EAGER)
 	private Address address;
