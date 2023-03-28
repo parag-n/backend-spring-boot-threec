@@ -30,7 +30,7 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int postId;
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "consumerId")
+	@JoinColumn(name = "userId")
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Consumer consumer;
 	private String title;

@@ -1,7 +1,6 @@
 package com.threec.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,30 +10,27 @@ import com.threec.dao.ExpertiseDao;
 
 @Service
 public class ExpertiseServiceImpl implements ExpertiseService{
+
 	@Autowired
 	ExpertiseDao expertiseDao;
 
+	// CREATE A NEW EXPERTISE
 	@Override
-	public Expertise createExpertise(Expertise expertise) {
+	public Expertise create(Expertise expertise) {
 		return expertiseDao.save(expertise);
 	}
 
+	// CREATE MULTIPLE NEW EXPERTISES
 	@Override
-	public Expertise readExpertise(int expertiseId) {
-		Optional<Expertise> read=expertiseDao.findById(expertiseId);
-		return read.orElse(null);
+	public List<Expertise> createMany(List<Expertise> expertises) {
+		return expertiseDao.saveAll(expertises);
 	}
 
+	// READ ALL THE EXPERTISES
 	@Override
-	public List<Expertise> readAllExpertises() {
+	public List<Expertise> readAll() {
 		return expertiseDao.findAll();
 	}
-
-	@Override
-	public boolean deleteExpertise(int expertiseId) {
-		Expertise expertise=readExpertise(expertiseId);
-		if(expertise==null) return false;
-		expertiseDao.delete(expertise);
-		return true;
-	}
+	
+	
 }

@@ -6,15 +6,8 @@ import com.threec.beans.Post;
 
 public interface PostService {
 
-	Post createPost(Post post);
+	Post create(Post post, String username);
 
-	Post readPost(int postId);
-
-	List<Post> readAllPosts();
-
-	boolean deletePost(int postId);
-
-	List<Post> readByExpertise(List<Integer> elist);
-
+	List<Post> readAllForConsumer(String username);
 
 }

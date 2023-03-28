@@ -6,19 +6,12 @@ import com.threec.beans.Consumer;
 
 public interface ConsumerService {
 
-	Consumer createConsumer(Consumer consumer);
+	Consumer register(Consumer consumer);
 
-	Consumer readConsumer(int consumerId);
+	Consumer findByConsumerId(int consumerId);
 
-	List<Consumer> readAllConsumers();
-
-	Consumer updateConsumer(Consumer consumer);
-
-	boolean deleteConsumer(int consumerId);
-
-	Consumer addPost(Consumer consumer);
-
-	Consumer getLogin(Consumer consumer);
-
+	Consumer findByUsername(String username);
+	
+	List<Consumer> getAll();
 
 }

@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,43 +16,33 @@ import com.threec.beans.Expertise;
 import com.threec.service.ExpertiseService;
 
 @RestController
-@RequestMapping("/expertise")
 @CrossOrigin("*")
+@RequestMapping("/expertise")
 public class ExpertiseController {
 	@Autowired
 	ExpertiseService expertiseService;
 	
-	// CREATE
+	// ADD A NEW EXPERTISE
+	@PostMapping("/expertise")
+	public ResponseEntity<Expertise> create(@RequestBody Expertise expertise){
+		Expertise created=expertiseService.create(expertise);
+		if(created==null) return new ResponseEntity<Expertise>(HttpStatus.BAD_REQUEST);
+		return ResponseEntity.ok(created);
+	}
+	
+	// ADD MULTIPLE NEW EXPERTISES
 	@PostMapping("/expertises")
-	public ResponseEntity<Expertise> createExpertise(@RequestBody Expertise expertise){
-		Expertise created=expertiseService.createExpertise(expertise);
-		if(created!=null) return ResponseEntity.ok(created);
-		return new ResponseEntity<Expertise>(HttpStatus.BAD_REQUEST);
+	public ResponseEntity<List<Expertise>> createMany(@RequestBody List<Expertise> expertises){
+		List<Expertise> created=expertiseService.createMany(expertises);
+		if(created==null) return new ResponseEntity<List<Expertise>>(HttpStatus.BAD_REQUEST);
+		return ResponseEntity.ok(created);
 	}
 	
-	// READ ONE
-	@GetMapping("/expertises/{expertiseId}")
-	public ResponseEntity<Expertise> readExpertise(@PathVariable int expertiseId){
-		Expertise read=expertiseService.readExpertise(expertiseId);
-		if(read!=null) return ResponseEntity.ok(read);
-		return new ResponseEntity<Expertise>(HttpStatus.NOT_FOUND);
-	}
-	
-	// READ ALL
+	// RETRIEVE ALL EXPERTISES
 	@GetMapping("/expertises")
-	public ResponseEntity<List<Expertise>> readAllExpertises(){
-		List<Expertise> elist=expertiseService.readAllExpertises();
-		if(elist!=null) return ResponseEntity.ok(elist);
-		return new ResponseEntity<List<Expertise>>(HttpStatus.NOT_FOUND);
-	}
-	
-	// UPDATE
-	
-	// DELETE
-	@DeleteMapping("/expertises/{expertiseId}")
-	public ResponseEntity<String> deleteExpertise(@PathVariable int expertiseId){
-		boolean status=expertiseService.deleteExpertise(expertiseId);
-		if(status) return ResponseEntity.ok("Deleted successfully!");
-		return new ResponseEntity<String>("Expertise not present!", HttpStatus.NOT_FOUND);
+	public ResponseEntity<List<Expertise>> readAll(){
+		List<Expertise> all=expertiseService.readAll();
+		if(all==null) return new ResponseEntity<List<Expertise>>(HttpStatus.NOT_FOUND);
+		return ResponseEntity.ok(all);
 	}
 }

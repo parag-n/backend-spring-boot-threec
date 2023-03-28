@@ -6,12 +6,10 @@ import com.threec.beans.Expertise;
 
 public interface ExpertiseService {
 
-	Expertise createExpertise(Expertise expertise);
+	Expertise create(Expertise expertise);
 
-	Expertise readExpertise(int expertiseId);
+	List<Expertise> createMany(List<Expertise> expertises);
 
-	List<Expertise> readAllExpertises();
-
-	boolean deleteExpertise(int expertiseId);
+	List<Expertise> readAll();
 
 }

@@ -1,7 +1,6 @@
 package com.threec.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,53 +8,51 @@ import org.springframework.stereotype.Service;
 import com.threec.beans.Address;
 import com.threec.beans.Consumer;
 import com.threec.dao.AddressDao;
-import com.threec.dao.ConsumerDao;
 
 @Service
 public class AddressServiceImpl implements AddressService{
+	
+	@Autowired
+	ConsumerService consumerService;
+	
 	@Autowired
 	AddressDao addressDao;
-	@Autowired
-	ConsumerDao consumerDao;
-	
-	
+
+	// ADD NEW ADDRESS
 	@Override
-	public Address createAddress(Address address) {
+	public Address create(Address address, String username) {
 		
-		int consumerId=address.getConsumer().getConsumerId();
-		Optional<Consumer> op=consumerDao.findById(consumerId);
+		Consumer found=consumerService.findByUsername(username);
+		if(found==null) return null;
 		
-		if(op.isPresent()) {
-			Consumer consumer=op.get();
-			address.setConsumer(consumer);
-		}
-		
+		address.setConsumer(found);
 		return addressDao.save(address);
+		
 	}
 
+	// ADD MULTIPLE ADDRESSES
 	@Override
-	public List<Address> readAddresses() {
-		return addressDao.findAll();
-	}
-
-	@Override
-	public Address readAddress(int addressId) {
-		Optional<Address> op=addressDao.findById(addressId);
-		return op.orElse(null);
-	}
-
-	@Override
-	public boolean deleteAddress(int addressId) {
-		Address address=readAddress(addressId);
-		if(address!=null) {
-			addressDao.deleteById(address.getAddressId());
-			return true;
+	public List<Address> createMany(List<Address> alist, String username) {
+		Consumer found=consumerService.findByUsername(username);
+		if(found==null) return null;
+		
+		for(Address a:alist) {
+			a.setConsumer(found);
 		}
-		return false;
+		
+		return addressDao.saveAll(alist);
 	}
 
+	// RETRIEVE ALL THE ADDRESSES OF A CONSUMER
 	@Override
-	public List<Address> getAddressByConsumer(int consumerId) {
-		return addressDao.getAddressByConsumer(consumerId);
+	public List<Address> readAll(String username) {
+		Consumer found=consumerService.findByUsername(username);
+		if(found==null)	return null;
+		return found.getAddresses();
+	}
+
+	// RETRIEVE AN ADDRESS OF A CONSUMER BY ADDRESSID
+	public Address findById(int addressId) {
+		return addressDao.findById(addressId).orElse(null);
 	}
 }

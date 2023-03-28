@@ -6,14 +6,12 @@ import com.threec.beans.Address;
 
 public interface AddressService {
 
-	Address createAddress(Address address);
+	Address create(Address address, String username);
 
-	List<Address> readAddresses();
+	List<Address> readAll(String username);
 
-	Address readAddress(int addressId);
+	Address findById(int addressId);
 
-	boolean deleteAddress(int addressId);
-
-	List<Address> getAddressByConsumer(int consumerId);
+	List<Address> createMany(List<Address> alist, String username);
 
 }
