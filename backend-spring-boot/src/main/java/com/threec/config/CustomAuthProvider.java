@@ -29,17 +29,13 @@ public class CustomAuthProvider implements AuthenticationProvider{
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		
-		System.out.println("in my custom auth ==================**************");
 		String username=(String) authentication.getPrincipal();
 		String password=authentication.getCredentials().toString();
 		User user;
 		try {
 			user=(User)userDetailsService.loadUserByUsername(username);
 			password=password.concat(user.getSalt());
-//			System.out.println(password);
-//			password=passwordEncoder.encode(password);
-			System.out.println(password);
-			System.out.println(user.getPassword());
+			
 			if(this.passwordEncoder.matches(password, user.getEmail())) {
 				return new UsernamePasswordAuthenticationToken(username, null, user.getAuthorities());
 			}

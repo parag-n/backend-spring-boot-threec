@@ -54,7 +54,7 @@ public class JWTFilter extends OncePerRequestFilter{
 		 * if no Authorization header is found,
 		 * <p>or</p>
 		 * The header doesn't start with the "Bearer " string,
-		 * stop the process and returns
+		 * stops the process and returns
 		 */
 		if(authHeader==null || !authHeader.startsWith("Bearer ")){
 			filterChain.doFilter(request, response);

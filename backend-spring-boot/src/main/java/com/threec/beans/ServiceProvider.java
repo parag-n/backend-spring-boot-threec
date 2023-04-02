@@ -2,6 +2,8 @@ package com.threec.beans;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,6 +41,7 @@ public class ServiceProvider extends User{
 	@Column(nullable = false)
 	private List<Expertise> expertise;
 	@OneToMany(mappedBy = "serviceProvider", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Bid> bids;
 
 	

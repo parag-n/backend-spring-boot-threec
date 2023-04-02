@@ -29,9 +29,6 @@ public class UserServiceImpl implements UserService{
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println("==========>load user by username called!<==========");
-//		UserDetails u=userRepository.findByUsername(username).orElse(null);
-//		System.out.println(u);
 		return userRepository.findByUsername(username)
 				.orElseThrow(()->new UsernameNotFoundException("TC User was not found ==>"));
 	}
