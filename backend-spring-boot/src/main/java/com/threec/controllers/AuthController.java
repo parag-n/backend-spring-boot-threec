@@ -17,8 +17,8 @@ import com.threec.beans.AuthRequest;
 import com.threec.util.JwtUtil;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/auth")
+@CrossOrigin("*")
 public class AuthController {
 	
 	@Autowired
@@ -41,7 +41,6 @@ public class AuthController {
 			System.out.println(e.getMessage());
 			return new ResponseEntity<String>("Bad Credentials!", HttpStatus.FORBIDDEN);
 		}
-//		System.out.println(auth);
 		String token= jwUtil.generateToken((UserDetails)auth.getPrincipal());
 		return ResponseEntity.ok(token);
 	}

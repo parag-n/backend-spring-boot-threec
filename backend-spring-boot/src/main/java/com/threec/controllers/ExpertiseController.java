@@ -16,8 +16,8 @@ import com.threec.beans.Expertise;
 import com.threec.service.ExpertiseService;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/expertise")
+@CrossOrigin("*")
 public class ExpertiseController {
 	@Autowired
 	ExpertiseService expertiseService;

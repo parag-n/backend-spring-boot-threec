@@ -3,8 +3,10 @@ package com.threec.beans;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.threec.enums.PostStatus;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -25,6 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,9 +41,9 @@ public class Post {
 	@OneToOne(fetch = FetchType.EAGER)
 	private Expertise category;
 	private Date date;
-	private String status;//bids open 2. close 3.pending work 4. work completed 
+	private PostStatus status;
 	@OneToOne(fetch = FetchType.EAGER)
 	private Address address;
-	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Bid> bids;
 }
