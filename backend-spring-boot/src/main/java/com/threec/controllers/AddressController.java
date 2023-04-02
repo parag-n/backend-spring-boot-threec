@@ -18,8 +18,8 @@ import com.threec.beans.Address;
 import com.threec.service.AddressService;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/address")
+@CrossOrigin("*")
 public class AddressController {
 
 	@Autowired

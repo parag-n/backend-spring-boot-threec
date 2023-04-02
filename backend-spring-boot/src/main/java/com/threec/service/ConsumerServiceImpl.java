@@ -7,8 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.threec.beans.Consumer;
-import com.threec.beans.Role;
 import com.threec.dao.ConsumerDao;
+import com.threec.enums.Role;
 import com.threec.util.TCUtil;
 
 @Service

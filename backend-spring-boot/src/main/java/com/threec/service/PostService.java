@@ -10,4 +10,6 @@ public interface PostService {
 
 	List<Post> readAllForConsumer(String username);
 
+	List<Post> readAllForServiceProvider(String username);
+
 }

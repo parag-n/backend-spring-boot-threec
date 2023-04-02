@@ -3,6 +3,8 @@ package com.threec.filter;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,9 +38,18 @@ public class JWTFilter extends OncePerRequestFilter{
 			FilterChain filterChain)
 			throws ServletException, IOException 
 	{
-		final String authHeader=request.getHeader("Authorization");
+		final String authHeader=request.getHeader(HttpHeaders.AUTHORIZATION);
 		final String jwt;
+		final String method=request.getMethod();
 		final String username;
+		
+		// RESPOND TO THE PRE-FLIGHT REQUEST FROM BROWSER (OPTIONS METHOD)
+		if(method.equals(HttpMethod.OPTIONS.toString())) {
+			response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://localhost:3000");
+			response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "*");
+			response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "*");
+		}
+		
 		/**
 		 * if no Authorization header is found,
 		 * <p>or</p>
@@ -67,15 +78,12 @@ public class JWTFilter extends OncePerRequestFilter{
 						null,
 						userDetails.getAuthorities()
 				);
-//				System.out.println(userDetails.getAuthorities());
 				token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				
 				request.setAttribute("username", userDetails.getUsername());
 				
 				// following line should be avoided as it may cause race condition
 				SecurityContextHolder.getContext().setAuthentication(token);
-				
-				
 			}
 		}
 		filterChain.doFilter(request, response);

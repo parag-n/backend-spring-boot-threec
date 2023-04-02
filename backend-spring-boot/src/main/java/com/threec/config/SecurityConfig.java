@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -30,13 +31,17 @@ public class SecurityConfig {
 					.disable()
 			)
 			
+			.cors(Customizer.withDefaults())
+			
 			.authorizeHttpRequests(authorizeHttpRequests -> 
 				authorizeHttpRequests
 					.requestMatchers("/auth/**", "/expertise/**").permitAll()
+					.requestMatchers(HttpMethod.OPTIONS, "**").permitAll()
 					.requestMatchers(HttpMethod.POST, "/consumer/consumer", "/serviceprovider/serviceprovider").permitAll()
-//					.requestMatchers("/consumer/*").hasAnyAuthority("ROLE_CONSUMER")
-//					.requestMatchers("/serviceprovider").hasAnyAuthority("SERVICE_PROVIDER")
+					.requestMatchers("/consumer/*").hasAnyAuthority("CONSUMER")
+					.requestMatchers("/serviceprovider/*").hasAnyAuthority("SERVICE_PROVIDER")
 					.anyRequest().authenticated()
+					
 			)
 			
 			.sessionManagement(sessionManagement->

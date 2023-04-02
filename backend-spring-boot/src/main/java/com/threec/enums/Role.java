@@ -1,4 +1,4 @@
-package com.threec.beans;
+package com.threec.enums;
 
 public enum Role {
 	
