@@ -1,0 +1,18 @@
+JWT WITH SPRINGBOOT
+
+==> https://www.techgeeknext.com/spring/spring-boot-security-token-authentication-jwt
+
+----------------------------
+JWT WITH SPRINGBOOT OLD
+
+===> https://javatodev.com/spring-boot-jwt-authentication/
+
+-------------------------------
+DOCKER SPRINGBOOT
+
+===> https://spring.io/blog/2018/11/08/spring-boot-in-a-container
+
+---------------------------------
+CREATE DOCUMENTATION OF RESTFUL API ENDPOINTS
+
+==> https://spring.io/guides/gs/testing-restdocs/
