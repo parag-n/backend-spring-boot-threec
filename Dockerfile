@@ -1,4 +1,4 @@
-FROM openjdk:19
+FROM openjdk:17
 VOLUME /tmp
 EXPOSE 7070
 ARG JAR_FILE=target/application-2.0.1.jar

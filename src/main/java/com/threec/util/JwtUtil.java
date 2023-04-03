@@ -27,7 +27,7 @@ public class JwtUtil {
 	/**
 	 * The secret string to create a signing key
 	 */
-	private static final String MY_SECRET_KEY="YOUR 256 BIT SECRET KEY HERE";
+	private static final String MY_SECRET_KEY="5A7134743777217A24432646294A404E635266556A586E3272357538782F413F";
 	
 	/**
 	 * A method to extract the username from the JWT token
