@@ -19,7 +19,7 @@ import com.threec.service.ConsumerService;
 
 @RestController
 @RequestMapping("/consumer")
-@CrossOrigin("*")
+@CrossOrigin
 public class ConsumerController {
 
 	@Autowired
