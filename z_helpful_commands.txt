@@ -1,0 +1,5 @@
+to clean and build the maven project
+$ mvn clean install
+
+to run the spring-boot application with CLI
+$ mvn spring-boot:run
