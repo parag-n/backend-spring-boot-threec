@@ -6,12 +6,41 @@ Service provider is anyone who wants to provide the service in return of a payme
 <hr>
 
 ### Working Mechanism
+	- Consumer creates post
+	- Service providers bid on the post created by the consumer
+	- Consumer selects the bid whichever is feasible for him among all the bids received
+	- Service provider receives the contact details of the consumer and the address where the service is to be provided
+	- Service is conducted and post is closed
+
+<hr>
 
 #### Registration of a Consumer
+Consumer needs to provide following details for registration <br>
+
+`fullname` <br>
+`mobile` <br>
+`email` <br>
+`username` <br>
+`password` <br>
+
+<hr>
 
 #### Registration of a Service Provider
+Service provider needs to provide following details for registration <br>
+
+`fullname` <br>
+`mobile` <br>
+`email` <br>
+`username` <br>
+`password` <br>
+`name of city` <br>
+
+<hr>
 
 #### Demand of a service
+Consumer creates a post with following details in it
+
+
 
 #### Bidding
 
